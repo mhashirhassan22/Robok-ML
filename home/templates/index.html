@@ -1,0 +1,121 @@
+{% include 'head.html' %}
+{% load static %}
+<body>
+	<div class="container-contact100">
+<!-- Button trigger modal -->
+  <!-- Modal -->
+  <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="errorModalLabel">Response from System</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+		  {{error}}
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+		<div class="wrap-contact100">
+			<form enctype="multipart/form-data" id='image-form' class="contact100-form validate-form" method="POST" action="{% url 'home:index' %}">
+				{% csrf_token %}
+				<a class="btn btn-danger" href="{% url 'account_logout' %}">Sign Out</a>
+				<a class="btn btn-info ml-3" href="{% url 'home:results' %}">View Results History</a>
+				{% if user.is_staff %}
+				<a class="btn btn-info ml-3" href="/admin">Admin Panel</a>
+				{% endif %}
+				<span class="contact100-form-title mt-3">
+					Upload Image
+				</span>
+				<label class="label-input100" for="email">Image Field</label>
+				<div class="wrap-input100">
+					<input type="file" name="uploaded_image"  accept="image/*" required id="id_uploaded_image" onchange="SubmitActive();" multiple>
+					<span class="focus-input100"></span>
+				</div>
+				
+
+				<div class="container-contact100-form-btn">
+					<button id="submit-button" class="btn btn-success" type="submit" disabled>
+						Upload
+					</button>
+				</div>
+				{% if result %}
+				<span class="contact100-form-title" style="padding-top: 30px; text-decoration: underline;">
+					Uploaded Image
+				</span>
+				{% endif %}
+				{% for result in results %}
+				<img src="{{result.uploaded_image.url}}" style="margin-left: 2%; margin-top: 20px; max-width: 800px;">
+				{% endfor %}
+				{% if result %}
+				<span class="contact100-form-title" style="padding-top: 30px; text-decoration: underline;">
+					Result
+				</span>
+				{% endif %}
+				{% for result in results %}
+				<img src="{{result.result.url}}" style="margin-left: 2%;margin-top: 20px; max-width: 800px;">
+				{% endfor %}
+			</form>
+		
+		</div>
+	</div>
+
+
+
+	<div id="dropDownSelect1"></div>
+
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/animsition/js/animsition.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/select2/select2.min.js' %}"></script>
+	<script>
+		$(".selection-2").select2({
+			minimumResultsForSearch: 20,
+			dropdownParent: $('#dropDownSelect1')
+		});
+	</script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/daterangepicker/moment.min.js' %}"></script>
+	<script src="{% static 'vendor/daterangepicker/daterangepicker.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/countdowntime/countdowntime.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'js/main.js' %}"></script>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-23581568-13');
+	</script>
+	<script>
+		function showAlert(){
+			if('{{error}}'){
+				$('#errorModal').modal('show');
+			}
+			return;
+		}
+		showAlert();
+	</script>
+	<script>
+		function SubmitActive()
+		{
+			while(document.getElementById('id_uploaded_image').value==null);
+			document.getElementById('submit-button').disabled=false
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+{% include 'head.html' %}
+{% load static %}
+<body>
+	<div class="container-fluid" style="margin:30px">
+<!-- Button trigger modal -->
+  <!-- Modal -->
+        <div class="row col-md-12">
+            <div class="col-md-2"></div>
+            <div class="col-md-4">
+                <h4>Original</h4>
+            </div>
+            <div class="col-md-4">
+                <h4>Depth Map</h4>
+            </div>
+            <div class="col-md-2">
+                <h4>Inference Time</h4>
+            </div>
+            </div>
+            <div class="row col-md-12">
+            {% for result in results %}
+            <div class="col-md-2"style="display:flex;flex-direction: column; justify-content: center;align-items: center;">{{result.uploaded_image.name}}</div>
+            <div class="col-md-4">
+                <img src="{{result.uploaded_image.url}}" style="margin-left: 2%; margin-top: 20px; max-width: 400px;">
+            </div>
+            <div class="col-md-4">
+                <img src="{{result.result.url}}" style="margin-left: 2%;margin-top: 20px;max-width: 400px;">
+            </div>
+            <div class="col-md-2" style="display:flex;flex-direction: column; justify-content: center;align-items: center;">
+                <span>{{result.infer_time}} ms</span>
+            </div>
+            {% endfor %}
+        </div>
+	</div>
+
+
+
+	<div id="dropDownSelect1"></div>
+
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/animsition/js/animsition.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/select2/select2.min.js' %}"></script>
+	<script>
+		$(".selection-2").select2({
+			minimumResultsForSearch: 20,
+			dropdownParent: $('#dropDownSelect1')
+		});
+	</script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/daterangepicker/moment.min.js' %}"></script>
+	<script src="{% static 'vendor/daterangepicker/daterangepicker.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/countdowntime/countdowntime.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'js/main.js' %}"></script>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+</body>
+</html>
