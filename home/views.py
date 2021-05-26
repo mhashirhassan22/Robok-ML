@@ -22,6 +22,8 @@ class index(View):
 
     def post(self,request):
         form = ImageForm(request.POST, request.FILES)
+        model = request.POST.get('model')
+        print("loos"+model)
         image = request.FILES.getlist('uploaded_image')
         count = len(image)
         print(image)
@@ -31,7 +33,12 @@ class index(View):
                 obj = ImageRequest.objects.create(user=request.user,uploaded_image=i)
                 obj.save()
                 ids.append(obj)
-            main("checkpoint/checkpoint.ckpt",(320,704),None,None,image,ids)
+            if str(model) == 'robok_depthnet':
+                main("checkpoint/checkpoint.ckpt",(320,704),None,None,image,ids)
+            else:
+                for i in ids:
+                    i.result = i.uploaded_image
+                    i.save()
             return render(request, 'images.html',context={"results":ids})
         else:
             print(form.errors)

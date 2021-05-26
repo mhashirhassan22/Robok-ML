@@ -1,5 +1,13 @@
 {% include 'head.html' %}
 {% load static %}
+<style>
+	.form_control{
+		width: 100%;
+		font-size: 1rem;
+		line-height: 1.25;
+		color: #495057;
+	}
+</style>
 <body>
 	<div class="container-contact100">
 <!-- Button trigger modal -->
@@ -33,6 +41,14 @@
 				<span class="contact100-form-title mt-3">
 					Upload Image
 				</span>
+				<label class="label-input100" for="email">Model</label>
+				<div class="wrap-input100">
+					<select class="form_control" name="model" required>
+						<option value="robok_depthnet">Robok DepthNet</option>
+						<option value="original">Only Original</option>
+					</select>
+					<span class="focus-input100"></span>
+				</div>
 				<label class="label-input100" for="email">Image Field</label>
 				<div class="wrap-input100">
 					<input type="file" name="uploaded_image"  accept="image/*" required id="id_uploaded_image" onchange="SubmitActive();" multiple>

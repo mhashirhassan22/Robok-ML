@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
+    {% load static %}
     <title>{% block head_title %}{% endblock %}</title>
+    <link rel="icon" type="image/jpeg" href="{% static 'images/robok_logo.jpeg' %}"/>
     {% block extra_head %}
     {% endblock %}
   </head>

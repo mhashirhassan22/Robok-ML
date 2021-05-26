@@ -23,7 +23,9 @@
                 <img src="{{result.uploaded_image.url}}" style="margin-left: 2%; margin-top: 20px; max-width: 400px;">
             </div>
             <div class="col-md-4">
+                {% if result.result %}
                 <img src="{{result.result.url}}" style="margin-left: 2%;margin-top: 20px;max-width: 400px;">
+                {% endif %}
             </div>
             <div class="col-md-2" style="display:flex;flex-direction: column; justify-content: center;align-items: center;">
                 <span>{{result.infer_time}} ms</span>
