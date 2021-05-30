@@ -23,7 +23,6 @@ class index(View):
     def post(self,request):
         form = ImageForm(request.POST, request.FILES)
         model = request.POST.get('model')
-        print("loos"+model)
         image = request.FILES.getlist('uploaded_image')
         count = len(image)
         print(image)
