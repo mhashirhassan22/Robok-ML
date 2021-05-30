@@ -22,7 +22,7 @@ class index(View):
 
     def post(self,request):
         form = ImageForm(request.POST, request.FILES)
-        model = request.POST.get('model')
+        model = request.POST.get('model')   # fetch model selection of user from dropdown
         image = request.FILES.getlist('uploaded_image')
         count = len(image)
         print(image)
@@ -32,8 +32,8 @@ class index(View):
                 obj = ImageRequest.objects.create(user=request.user,uploaded_image=i)
                 obj.save()
                 ids.append(obj)
-            if str(model) == 'robok_depthnet':
-                main("checkpoint/checkpoint.ckpt",(320,704),None,None,image,ids)
+            if str(model) == 'robok_depthnet':  # write elif for your own model
+                main("checkpoint/checkpoint.ckpt",(320,704),None,None,image,ids)    # import your function at start of file and call that in elif
             else:
                 for i in ids:
                     i.result = i.uploaded_image
